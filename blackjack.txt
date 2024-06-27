@@ -1,0 +1,126 @@
+import random  #there is an issue with ace 
+cards=[2,3,4,5,6,7,8,9,10,10,10,10,11]
+def user_cards():
+    global user,computer,cards
+    random.shuffle(cards)
+    user=random.sample(cards,2)
+    computer=random.sample(cards,2)
+    print(f"user cards {user} ")
+    print(f"computer cards {computer} ")
+def black_jack():
+    global sums,sum1
+    sums=sum(user)
+    sum1=sum(computer)
+    print(f"user {user} and sum {sums}")
+    print(f"computer {computer} and sum {sum1}")
+    while True:
+        if sums==21:
+            print("black jack u won")
+        elif sum1==21:
+            print("Computer won")
+        elif sums==21 and sum1==21:
+            print("Tie")
+        else:
+            print("Continue")
+        break
+def computers(): 
+    global sum1,computer,new_card
+    while sum1<17:
+        new_C=random.sample(cards,1)
+        computer+=new_C
+        sum1=sum(computer)
+        print(f"computer has {computer} and their sum {sum1} ")
+        while new_card=='s':
+            if sum1>21:
+                print("computer loss and user won ")
+            elif sum1<17:
+                computers() 
+            elif sum1==21 :
+                print("computer won and user loss ")
+            elif sum1<sums:
+                print("COmputer loss and user won")
+            elif sum1>sums:
+                print("Computer win ans user loss")
+            elif sum1==sums:
+                print("Tie")
+            break
+        while new_card=='y':
+            if sum1>21:
+               print("computer lose")
+            elif sum1<sum2:
+               print("compuTER lose")
+            elif sum1==sum2:
+               print("Tie")  
+            elif  sum1>sum2:
+               print("COMPUTER WON")
+            elif sum1==black_jack:
+                print("CompTer won")
+            else:
+                print("Enter valid thing")
+            break
+    if sum1>21:
+       print("computer lose")
+    elif sum1<sum2:
+       print("compuTER lose")
+    elif sum1==sum2:
+       print("Tie")  
+    elif  sum1>sum2:
+       print("COMPUTER WON")
+    elif sum1==21:
+        print("CompTer won")
+    else:
+        print("not valid thing")
+def my_total():
+    global ace,user,computer,new_card,sum2 #there is some error with ace
+    ace=11
+    if sums<21:
+        while sum1!=21:
+            new_card=input("Do you want to draw another card ?\n press 'y' to continue \n type 's' to stand?").lower()
+            if new_card=='y':
+                new_carded=random.sample(cards,1)
+                user+=new_carded
+                sum2=sum(user)
+                print(f"user {user} and sum is {sum2}")
+                while ace in user and sums>21:
+                    exceeds()
+                    if sum2>21:
+                        print("U lose")
+                    break
+                if sum2>21:
+                    s="USer lose"
+                    print(s)
+                    return 
+                elif sum2==21:
+                    print("u won")
+                    return
+                elif sum2<21:
+                    my_total()
+            elif new_card=='s':
+                computers()
+            else:
+                print("Invalid choice")
+            break
+        while sums==21:
+            print("U won")
+            break
+    elif sum2>21:
+        while ace in user:
+            print(f"User score is {sums} > 21")
+            while ace in user:
+                ace_index=user.index(ace)
+                ace_remove=user.remove(ace)
+                ace_1=user.insert(ace_index,1)
+                ace_sum=sum(user)
+                if ace_sum>21:
+                    print(f"After replacing ace Still ur sum is {ace_sum} > 21 , u lose")
+                elif ace_sum==21:
+                    print("U won")
+                elif ace_sum<21:
+                    print("Continue")
+                else:
+                    print("good continue")
+                break
+            break
+user_cards()
+black_jack()
+my_total()
